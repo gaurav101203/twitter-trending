@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const chrome = require('selenium-webdriver/chrome');
 
 // const PROXY = "http://gaurav10:qweasd147258@open.proxymesh.com:31280";
-const MONGO_URI = "mongodb://localhost:27017/";
+const MONGO_URI = "mongodb+srv://gaurav:qweasd147258@cluster0.if4ft.mongodb.net/";
 const DB_NAME = "twitter_trends";
 const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
