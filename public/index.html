@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            margin-left: 600px;
+            margin-top: 100px;
+        }
+        h1{
+            margin-left: 45px;
+        }
+        #results {
+            margin-right: 700px;
+        }
+        #run-script{
+            background-color: rgb(0, 238, 255);
+            height:40px ;
+            width: 300px;
+            border: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Topics</title>
+</head>
+<body>
+    <h1>Trending Topics</h1>
+    <div id="results"></div>
+    <button id="run-script">Click here to run the query again</button>
+
+    <script>
+        document.getElementById('run-script').addEventListener('click', async () => {
+            const response = await fetch('/fetch-trends', { method: 'POST' });
+            const result = await response.json();
+
+            // Convert ISO date to a more readable format
+            const date = new Date(result.datetime);
+const formattedDate = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+}).format(date);
+
+
+            const resultDiv = document.getElementById('results');
+            resultDiv.innerHTML = `
+                <p>These are the most happening topics as on ${formattedDate}:</p>
+                <ul>
+                    <li>${result.trends[0]}</li>
+                    <li>${result.trends[1]}</li>
+                    <li>${result.trends[2]}</li>
+                    <li>${result.trends[3]}</li>
+                    <li>${result.trends[4]}</li>
+                </ul>
+                <p>The IP address used for this query was ${result.ipAddress}.</p>
+                <p>Here’s a JSON extract of this record from the MongoDB:</p>
+                <pre>${JSON.stringify(result, null, 2)}</pre>
+            `;
+        });
+    </script>
+</body>
+</html>
