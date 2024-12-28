@@ -4,16 +4,19 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const chrome = require('selenium-webdriver/chrome');
+// const chromedriverPath = require('chromedriver');
+const cors = require('cors');
 
-// const PROXY = "http://gaurav10:qweasd147258@open.proxymesh.com:31280";
+const PROXY = "http://gaurav10:qweasd147258@us-ca.proxymesh.com:31280";
 const MONGO_URI = "mongodb+srv://gaurav:qweasd147258@cluster0.if4ft.mongodb.net/";
 const DB_NAME = "twitter_trends";
 const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
+const EMAIL = "yadavgaurav101203@gmail.com";
 
 // MongoDB setup
 let db;
-MongoClient.connect(MONGO_URI, { useUnifiedTopology: true })
+MongoClient.connect(MONGO_URI)
     .then(client => {
         db = client.db(DB_NAME);
         console.log("Connected to MongoDB");
@@ -21,11 +24,20 @@ MongoClient.connect(MONGO_URI, { useUnifiedTopology: true })
     .catch(err => console.error("MongoDB connection error:", err));
 
 // Login to Twitter
-async function loginToTwitter(driver, username, password) {
+async function loginToTwitter(driver, username,email, password) {
     await driver.get("https://x.com/login");
     await driver.wait(until.elementLocated(By.name("text")), 30000);
     const usernameInput = await driver.findElement(By.name("text"));
     await usernameInput.sendKeys(username, Key.RETURN);
+
+    // Check if email input exists
+    try {
+        await driver.wait(until.elementLocated(By.name("text")), 2000);
+        const emailInput = await driver.findElement(By.name("text"));
+        await emailInput.sendKeys(email, Key.RETURN);
+    } catch (err) {
+        console.log("Email input not required, proceeding to password.");
+    }
 
     await driver.wait(until.elementLocated(By.name("password")), 30000);
     const passwordInput = await driver.findElement(By.name("password"));
@@ -76,15 +88,18 @@ async function storeTrendingTopics(trends, ipAddress) {
 // Main function
 async function fetchTrends() {
     const options = new chrome.Options()
-        // .addArguments(`--proxy-server=${PROXY}`);
         .addArguments('--headless')
         .addArguments('--disable-gpu')
         .addArguments('--window-size=1920,1080');
+        // .addArguments(`--proxy-server=${PROXY}`);
 
-    const driver = await new Builder().forBrowser("chrome").setChromeOptions(options).build();
+        // const service = new chrome.ServiceBuilder(chromedriverPath);
+        const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
+        // .setChromeService(service)
+        .build();
 
     try {
-        await loginToTwitter(driver, USERNAME, PASSWORD);
+        await loginToTwitter(driver, USERNAME,EMAIL, PASSWORD);
         const trends = await getTrendingTopics(driver);
         const ipAddress = (await axios.get("https://api.ipify.org")).data;
         await storeTrendingTopics(trends, ipAddress);
@@ -100,6 +115,7 @@ async function fetchTrends() {
 
 // Express App Setup
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public')); // Ensure `index.html` is placed in the `public` folder
 
@@ -114,13 +130,7 @@ app.post('/fetch-trends', async (req, res) => {
 });
 
 // Start Server
-const PORT = 3000;
+const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-
-
-
-
-
