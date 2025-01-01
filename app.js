@@ -94,7 +94,8 @@ async function fetchTrends() {
         .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
-        const service = new chrome.ServiceBuilder(driverPath); // Correct instantiation
+        const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
+        chrome.setDefaultService(service);
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
         .setChromeService(service)
         .build();
