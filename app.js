@@ -13,7 +13,7 @@ const DB_NAME = "twitter_trends";
 const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
-const driverPath = "/usr/local/bin/chromedriver"; // Path to the ChromeDriver
+const driverPath = "./chromedriver"; // Path to the ChromeDriver
 const chromePath = "/usr/bin/google-chrome";
 
 // MongoDB setup
