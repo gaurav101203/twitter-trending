@@ -90,10 +90,7 @@ async function storeTrendingTopics(trends, ipAddress) {
 // Main function
 async function fetchTrends() {
     const options = new chrome.Options()
-        .addArguments('--headless')
-        .addArguments('--disable-gpu')
-        .addArguments("--no-sandbox")
-        .addArguments('--window-size=1920,1080');
+        .setChromeBinaryPath(chromePath) .addArguments('--headless') .addArguments('--disable-gpu') .addArguments('--no-sandbox') .addArguments('--disable-dev-shm-usage') .addArguments('--remote-debugging-port=9222') .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
         const service = new chrome.ServiceBuilder(driverPath); // Correct instantiation
