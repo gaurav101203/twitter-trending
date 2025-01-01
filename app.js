@@ -95,7 +95,7 @@ async function fetchTrends() {
         // .addArguments(`--proxy-server=${PROXY}`);
 
         const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
-        chrome.setDefaultService(service);
+        service.start();  // Start the Chrome service
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
         .setChromeService(service)
         .build();
