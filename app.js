@@ -4,7 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const chrome = require('selenium-webdriver/chrome');
-// const driverPath = "/usr/local/bin/chromedriver"; // Path to the ChromeDriver
+const path = require("path");
 const cors = require('cors');
 
 const PROXY = "http://gaurav10:qweasd147258@us-ca.proxymesh.com:31280";
@@ -13,6 +13,8 @@ const DB_NAME = "twitter_trends";
 const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
+const driverPath = "/usr/local/bin/chromedriver"; // Path to the ChromeDriver
+const chromePath = '/usr/bin/google-chrome';
 
 // MongoDB setup
 let db;
@@ -94,10 +96,10 @@ async function fetchTrends() {
         .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
-        // const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
+        const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
         // service.start();  // Start the Chrome service
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
-        // .setChromeService(service)
+        .setChromeService(service)
         .build();
 
     try {
