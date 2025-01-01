@@ -13,6 +13,11 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get install -y ./google-chrome-stable_current_amd64.deb
 rm google-chrome-stable_current_amd64.deb
 
+# Set Google Chrome binary path
+GOOGLE_CHROME_BIN="/usr/bin/google-chrome"
+export GOOGLE_CHROME_BIN
+echo "Google Chrome binary path: $GOOGLE_CHROME_BIN"
+
 # Install ChromeDriver
 echo "Installing ChromeDriver..."
 CHROME_VERSION=$(google-chrome --version | grep -oP '\d+' | head -1)
