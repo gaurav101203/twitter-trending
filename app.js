@@ -85,6 +85,8 @@ async function storeTrendingTopics(trends, ipAddress) {
     }
 }
 
+const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
+        service.start();  // Start the Chrome service
 // Main function
 async function fetchTrends() {
     const options = new chrome.Options()
@@ -93,9 +95,7 @@ async function fetchTrends() {
         .addArguments("--no-sandbox")
         .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
-
-        const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
-        service.start();  // Start the Chrome service
+    
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
         .setChromeService(service)
         .build();
