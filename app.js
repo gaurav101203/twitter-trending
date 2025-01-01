@@ -4,7 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const chrome = require('selenium-webdriver/chrome');
-const path = require("path");
+const path = require('path');
 const cors = require('cors');
 
 const PROXY = "http://gaurav10:qweasd147258@us-ca.proxymesh.com:31280";
@@ -14,7 +14,7 @@ const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
 const driverPath = "/usr/local/bin/chromedriver"; // Path to the ChromeDriver
-const chromePath = '/usr/bin/google-chrome';
+const chromePath = "/usr/bin/google-chrome";
 
 // MongoDB setup
 let db;
