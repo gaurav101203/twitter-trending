@@ -4,7 +4,7 @@ const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 const chrome = require('selenium-webdriver/chrome');
-// const chromedriverPath = require('chromedriver');
+const path = "/usr/local/bin/chromedriver";
 const cors = require('cors');
 
 const PROXY = "http://gaurav10:qweasd147258@us-ca.proxymesh.com:31280";
@@ -93,9 +93,9 @@ async function fetchTrends() {
         .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
-        // const service = new chrome.ServiceBuilder(chromedriverPath);
+        const service = new chrome.ServiceBuilder(path).build();
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
-        // .setChromeService(service)
+        .setChromeService(service)
         .build();
 
     try {
