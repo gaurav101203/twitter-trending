@@ -6,6 +6,7 @@ set -e
 # Install dependencies
 apt-get update
 apt-get install -y wget unzip apt-transport-https ca-certificates software-properties-common
+apt-get install -y libnss3 libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 libxtst6 libxrandr2 libasound2 fonts-liberation
 
 # Install Google Chrome
 echo "Installing Google Chrome..."
