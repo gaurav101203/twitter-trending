@@ -117,7 +117,7 @@ async function fetchTrends() {
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('public')); // Ensure `index.html` is placed in the `public` folder
+app.use(express.static('twitter-trends-frontend')); // Ensure `index.html` is placed in the `public` folder
 
 app.post('/fetch-trends', async (req, res) => {
     try {
