@@ -85,8 +85,6 @@ async function storeTrendingTopics(trends, ipAddress) {
     }
 }
 
-const service = new chrome.ServiceBuilder(driverPath).build(); // Correct instantiation
-        service.start();  // Start the Chrome service
 // Main function
 async function fetchTrends() {
     const options = new chrome.Options()
