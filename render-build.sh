@@ -1,46 +1,50 @@
-#!/usr/bin/env bash
-
-# Exit on error
-set -e
-
-# Install dependencies
-apt-get update
-apt-get install -y wget unzip apt-transport-https ca-certificates software-properties-common
-apt-get install -y libnss3 libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 libxtst6 libxrandr2 libasound2 fonts-liberation
-
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status.
-# set -e
+set -e
 
 # Install Chrome
 echo "Installing Chrome..."
-mkdir -p /opt/chrome
-curl -o /opt/chrome/chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chrome-linux64.zip
-unzip /opt/chrome/chrome-linux64.zip -d /opt/chrome/
-rm /opt/chrome/chrome-linux64.zip
+CHROME_DIR="/opt/chrome"
+CHROME_URL="https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chrome-linux64.zip"
+CHROME_BIN="$CHROME_DIR/chrome-linux64/chrome"
+CHROMEDRIVER_BIN="$CHROME_DIR/chrome-linux64/chromedriver"
+
+# Create directory for Chrome
+mkdir -p $CHROME_DIR
+
+# Download and unzip Chrome
+curl -o $CHROME_DIR/chrome-linux64.zip $CHROME_URL
+unzip $CHROME_DIR/chrome-linux64.zip -d $CHROME_DIR/
+rm $CHROME_DIR/chrome-linux64.zip
+
+# Verify Chrome binary exists
+if [ ! -f "$CHROME_BIN" ]; then
+  echo "Error: Chrome binary not found at $CHROME_BIN"
+  exit 1
+fi
+
+# Grant execution permissions
+chmod +x $CHROME_BIN
+chmod +x $CHROMEDRIVER_BIN
 
 # Set environment variables for Chrome and ChromeDriver
-export GOOGLE_CHROME_BIN="/opt/chrome/chrome-linux64/chrome"
-export CHROMEDRIVER_PATH="/opt/chrome/chrome-linux64/chromedriver"
+export GOOGLE_CHROME_BIN="$CHROME_BIN"
+export CHROMEDRIVER_PATH="$CHROMEDRIVER_BIN"
 
-# Add Chrome binary to PATH
-echo "Adding Chrome to PATH..."
-export PATH=$PATH:/opt/chrome/chrome-linux64/
+# Add Chrome to PATH
+export PATH=$PATH:$CHROME_DIR/chrome-linux64/
 
 # Confirm installation
 echo "Chrome binary is at: $GOOGLE_CHROME_BIN"
 echo "ChromeDriver is at: $CHROMEDRIVER_PATH"
 
-# Grant execution permissions
-chmod +x $GOOGLE_CHROME_BIN
-chmod +x $CHROMEDRIVER_PATH
-
-# Install dependencies
+# Install Node.js dependencies
 echo "Installing Node.js dependencies..."
 npm install
 
 echo "Build script completed successfully."
+
 
 
 # # Install ChromeDriver
