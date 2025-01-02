@@ -94,7 +94,7 @@ async function fetchTrends() {
         .addArguments('--headless') .addArguments('--disable-gpu') .addArguments('--no-sandbox') .addArguments('--disable-dev-shm-usage') .addArguments('--remote-debugging-port=9222') .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
-        const service = new chrome.ServiceBuilder(path).build(); // Correct instantiation
+        const service = new chrome.ServiceBuilder(path); // Correct instantiation
         // service.start();  // Start the Chrome service
         const driver = await new Builder().forBrowser("chrome").setChromeOptions(options)
         .setChromeService(service)
