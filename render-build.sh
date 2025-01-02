@@ -8,17 +8,16 @@ apt-get update
 apt-get install -y wget unzip apt-transport-https ca-certificates software-properties-common
 apt-get install -y libnss3 libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxi6 libxtst6 libxrandr2 libasound2 fonts-liberation
 
-# Install Google Chrome
-echo "Installing Google Chrome..."
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -x google-chrome-stable_current_amd64.deb chrome/
-apt-get install -y ./google-chrome-stable_current_amd64.deb
-rm google-chrome-stable_current_amd64.deb
+# Download and extract Chrome from the provided URL
+wget -O chrome-linux64.zip https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chrome-linux64.zip
+unzip chrome-linux64.zip -d /opt/chrome
+rm chrome-linux64.zip
 
-# Set Google Chrome binary path
-GOOGLE_CHROME_BIN="/usr/bin/google-chrome"
-export GOOGLE_CHROME_BIN
-echo "Google Chrome binary path: $GOOGLE_CHROME_BIN"
+# Make Chrome executable
+chmod +x /opt/chrome/chrome-linux64/chrome
+
+# Set environment variables for Chrome
+export GOOGLE_CHROME_BIN="/opt/chrome/chrome-linux64/chrome"
 
 # Install ChromeDriver
 echo "Installing ChromeDriver..."
