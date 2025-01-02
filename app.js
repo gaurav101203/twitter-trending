@@ -14,7 +14,7 @@ const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
 const driverPath = "./chromedriver"; // Path to the ChromeDriver
-const chromePath = "/usr/bin/google-chrome";
+const chromePath = "/opt/chrome/chrome-linux64/chrome";
 
 // MongoDB setup
 let db;
