@@ -14,7 +14,7 @@ const USERNAME = "GauravYadav1012"; // Predefined Twitter username
 const PASSWORD = "qweasd147258"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
 const driverPath = "./chromedriver"; // Path to the ChromeDriver
-// const chromePath = "/usr/bin/google-chrome";
+const chromePath = "/usr/bin/google-chrome";
 
 // MongoDB setup
 let db;
@@ -90,7 +90,7 @@ async function storeTrendingTopics(trends, ipAddress) {
 // Main function
 async function fetchTrends() {
     const options = new chrome.Options()
-        // .setChromeBinaryPath(chromePath) 
+        .setChromeBinaryPath(chromePath) 
         .addArguments('--headless') .addArguments('--disable-gpu') .addArguments('--no-sandbox') .addArguments('--disable-dev-shm-usage') .addArguments('--remote-debugging-port=9222') .addArguments('--window-size=1920,1080');
         // .addArguments(`--proxy-server=${PROXY}`);
 
