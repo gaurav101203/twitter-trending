@@ -8,10 +8,10 @@ const path = require('chromedriver').path;
 const cors = require('cors');
 
 const PROXY = "http://gaurav10:qweasd147258@us-ca.proxymesh.com:31280";
-const MONGO_URI = "mongodb+srv://gaurav:qweasd147258@cluster0.if4ft.mongodb.net/";
+const MONGO_URI = "Mongo URL";
 const DB_NAME = "twitter_trends";
-const USERNAME = "GauravYadav1012"; // Predefined Twitter username
-const PASSWORD = "qweasd147258"; // Predefined Twitter password
+const USERNAME = "Your Username"; // Predefined Twitter username
+const PASSWORD = "Your Password"; // Predefined Twitter password
 const EMAIL = "yadavgaurav101203@gmail.com";
 const driverPath = "./chromedriver"; // Path to the ChromeDriver
 const chromePath = "/usr/bin/google-chrome";
