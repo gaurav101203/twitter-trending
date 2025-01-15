@@ -12,7 +12,7 @@ const MONGO_URI = "Mongo URL";
 const DB_NAME = "twitter_trends";
 const USERNAME = "Your Username"; // Predefined Twitter username
 const PASSWORD = "Your Password"; // Predefined Twitter password
-const EMAIL = "yadavgaurav101203@gmail.com";
+const EMAIL = "Your email";
 const driverPath = "./chromedriver"; // Path to the ChromeDriver
 const chromePath = "/usr/bin/google-chrome";
 
